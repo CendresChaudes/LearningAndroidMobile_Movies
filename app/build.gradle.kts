@@ -37,7 +37,21 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+
+    implementation(libs.rx.android)
+    implementation(libs.rx.java)
+
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+    implementation(libs.room.rxjava3)
+
+    implementation(libs.glide)
+
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.adapter.rxjava)
+    implementation(libs.retrofit.converter.gson)
+
     testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.junit.ext)
     androidTestImplementation(libs.espresso.core)
 }
