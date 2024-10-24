@@ -1,18 +1,84 @@
 package com.example.movies;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private MainViewModel viewModel;
+    private RecyclerView recyclerViewMovies;
+    private MoviesAdapter moviesAdapter;
+    private ProgressBar progressBarMoviesLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.initActivity();
+    }
+
+    private void initActivity() {
+        this.initViews();
+        this.initViewModel();
+        this.initRecyclerViewMovies();
+        this.setOnReachEndListener();
+        this.setGetMoviesObserver();
+        this.setIsMoviesLoadingObserver();
+    }
+
+    private void initViews() {
+        recyclerViewMovies = findViewById(R.id.recyclerViewMovies);
+        progressBarMoviesLoading = findViewById(R.id.progressBarMoviesLoading);
+    }
+
+    private void initViewModel() {
+        this.viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+    }
+
+    private void initRecyclerViewMovies() {
+        this.moviesAdapter = new MoviesAdapter();
+        this.recyclerViewMovies.setLayoutManager(new GridLayoutManager(this, 2));
+        this.recyclerViewMovies.setAdapter(moviesAdapter);
+    }
+
+    private void setOnReachEndListener() {
+        this.moviesAdapter.setOnReachEndListener(new MoviesAdapter.OnReachEndListener() {
+            @Override
+            public void onReachEnd() {
+                viewModel.loadMovies();
+            }
+        });
+    }
+
+    private void setGetMoviesObserver() {
+        this.viewModel.getMovies().observe(this, new Observer<List<Movie>>() {
+            @Override
+            public void onChanged(List<Movie> movies) {
+                moviesAdapter.setMovies(movies);
+            }
+        });
+    }
+
+    private void setIsMoviesLoadingObserver() {
+        viewModel.getIsMoviesLoading().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean isLoading) {
+                if (isLoading) {
+                    progressBarMoviesLoading.setVisibility(View.VISIBLE);
+                } else {
+                    progressBarMoviesLoading.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 }
