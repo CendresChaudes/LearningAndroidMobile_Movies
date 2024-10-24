@@ -18,7 +18,7 @@ import java.util.List;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewHolder> {
 
-    private List<Movie> movies = new ArrayList<>();
+    private List<MoviePreview> movies = new ArrayList<>();
 
     private OnMovieItemClickListener onMovieItemClickListener;
     private OnReachEndListener onReachEndListener;
@@ -37,7 +37,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-        Movie movie = this.movies.get(position);
+        MoviePreview movie = this.movies.get(position);
 
         ImageView imageViewPoster = holder.getImageViewPoster();
         TextView textViewRating = holder.getTextViewRating();
@@ -71,7 +71,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         return this.movies.size();
     }
 
-    public void setMovies(List<Movie> movies) {
+    public void setMovies(List<MoviePreview> movies) {
         this.movies = movies;
         notifyDataSetChanged();
     }
@@ -100,7 +100,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     interface OnMovieItemClickListener {
 
-        void onClick(Movie movie);
+        void onClick(MoviePreview movie);
     }
 
     interface OnReachEndListener {

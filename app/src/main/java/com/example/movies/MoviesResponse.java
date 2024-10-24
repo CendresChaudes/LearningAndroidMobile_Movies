@@ -7,13 +7,13 @@ import java.util.List;
 public class MoviesResponse {
 
     @SerializedName("docs")
-    private List<Movie> movies;
+    private List<MoviePreview> movies;
 
-    public MoviesResponse(List<Movie> movies) {
+    public MoviesResponse(List<MoviePreview> movies) {
         this.movies = movies;
     }
 
-    public List<Movie> getMovies() {
+    public List<MoviePreview> getMovies() {
         return this.movies;
     }
 

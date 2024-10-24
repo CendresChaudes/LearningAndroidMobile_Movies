@@ -23,7 +23,7 @@ public class MainViewModel extends AndroidViewModel {
 
     private final ApiService apiService;
 
-    private final MutableLiveData<List<Movie>> movies;
+    private final MutableLiveData<List<MoviePreview>> movies;
     private final MutableLiveData<Boolean> isMoviesLoading;
 
     private final CompositeDisposable compositeDisposable;
@@ -75,8 +75,8 @@ public class MainViewModel extends AndroidViewModel {
                         new Consumer<MoviesResponse>() {
                             @Override
                             public void accept(MoviesResponse moviesResponse) throws Throwable {
-                                List<Movie> loadedMovies = movies.getValue();
-                                List<Movie> newMovies = moviesResponse.getMovies();
+                                List<MoviePreview> loadedMovies = movies.getValue();
+                                List<MoviePreview> newMovies = moviesResponse.getMovies();
 
                                 if (loadedMovies != null) {
                                     loadedMovies.addAll(newMovies);
@@ -97,7 +97,7 @@ public class MainViewModel extends AndroidViewModel {
         this.compositeDisposable.add(disposable);
     }
 
-    public LiveData<List<Movie>> getMovies() {
+    public LiveData<List<MoviePreview>> getMovies() {
         return this.movies;
     }
 

@@ -16,6 +16,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private MainViewModel viewModel;
+
     private RecyclerView recyclerViewMovies;
     private MoviesAdapter moviesAdapter;
     private ProgressBar progressBarMoviesLoading;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         this.initActivity();
     }
 
-    private void launchMovieDetailsScreen(Movie movie) {
+    private void launchMovieDetailsScreen(MoviePreview movie) {
         Intent intent = MovieDetailsActivity.createIntent(this, movie);
         startActivity(intent);
     }
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private void setOnMovieItemClickListener() {
         this.moviesAdapter.setOnMovieItemClickListener(new MoviesAdapter.OnMovieItemClickListener() {
             @Override
-            public void onClick(Movie movie) {
+            public void onClick(MoviePreview movie) {
                 launchMovieDetailsScreen(movie);
             }
         });
@@ -76,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setGetMoviesObserver() {
-        this.viewModel.getMovies().observe(this, new Observer<List<Movie>>() {
+        this.viewModel.getMovies().observe(this, new Observer<List<MoviePreview>>() {
             @Override
-            public void onChanged(List<Movie> movies) {
+            public void onChanged(List<MoviePreview> movies) {
                 moviesAdapter.setMovies(movies);
             }
         });
