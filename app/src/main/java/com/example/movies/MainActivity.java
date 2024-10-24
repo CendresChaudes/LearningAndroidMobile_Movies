@@ -1,5 +1,6 @@
 package com.example.movies;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -23,14 +24,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         this.initActivity();
+    }
+
+    private void launchMovieDetailsScreen(Movie movie) {
+        Intent intent = MovieDetailsActivity.createIntent(this, movie);
+        startActivity(intent);
     }
 
     private void initActivity() {
         this.initViews();
         this.initViewModel();
         this.initRecyclerViewMovies();
+        this.setOnMovieItemClickListener();
         this.setOnReachEndListener();
         this.setGetMoviesObserver();
         this.setIsMoviesLoadingObserver();
@@ -49,6 +55,15 @@ public class MainActivity extends AppCompatActivity {
         this.moviesAdapter = new MoviesAdapter();
         this.recyclerViewMovies.setLayoutManager(new GridLayoutManager(this, 2));
         this.recyclerViewMovies.setAdapter(moviesAdapter);
+    }
+
+    private void setOnMovieItemClickListener() {
+        this.moviesAdapter.setOnMovieItemClickListener(new MoviesAdapter.OnMovieItemClickListener() {
+            @Override
+            public void onClick(Movie movie) {
+                launchMovieDetailsScreen(movie);
+            }
+        });
     }
 
     private void setOnReachEndListener() {
