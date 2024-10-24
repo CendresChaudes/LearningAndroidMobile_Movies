@@ -4,12 +4,12 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class MovieResponse {
+public class MoviesResponse {
 
     @SerializedName("docs")
     private List<Movie> movies;
 
-    public MovieResponse(List<Movie> movies) {
+    public MoviesResponse(List<Movie> movies) {
         this.movies = movies;
     }
 

@@ -72,11 +72,11 @@ public class MainViewModel extends AndroidViewModel {
                     }
                 })
                 .subscribe(
-                        new Consumer<MovieResponse>() {
+                        new Consumer<MoviesResponse>() {
                             @Override
-                            public void accept(MovieResponse movieResponse) throws Throwable {
+                            public void accept(MoviesResponse moviesResponse) throws Throwable {
                                 List<Movie> loadedMovies = movies.getValue();
-                                List<Movie> newMovies = movieResponse.getMovies();
+                                List<Movie> newMovies = moviesResponse.getMovies();
 
                                 if (loadedMovies != null) {
                                     loadedMovies.addAll(newMovies);
