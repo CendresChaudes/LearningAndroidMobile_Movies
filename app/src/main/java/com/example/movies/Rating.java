@@ -20,7 +20,7 @@ public class Rating implements Serializable {
     @Override
     public String toString() {
         return "Rating{" +
-                "kp=" + kp +
+                "kp=" + this.kp +
                 '}';
     }
 }

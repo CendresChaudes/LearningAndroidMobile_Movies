@@ -20,7 +20,7 @@ public class Poster implements Serializable {
     @Override
     public String toString() {
         return "Poster{" +
-                "url='" + url + '\'' +
+                "url='" + this.url + '\'' +
                 '}';
     }
 }

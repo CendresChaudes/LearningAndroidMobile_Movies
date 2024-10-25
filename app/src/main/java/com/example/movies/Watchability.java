@@ -16,7 +16,7 @@ public class Watchability {
     @Override
     public String toString() {
         return "Videos{" +
-                "cinemas=" + cinemas +
+                "cinemas=" + this.cinemas +
                 '}';
     }
 }

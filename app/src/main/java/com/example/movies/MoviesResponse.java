@@ -20,7 +20,7 @@ public class MoviesResponse {
     @Override
     public String toString() {
         return "MovieResponse{" +
-                "movies=" + movies +
+                "movies=" + this.movies +
                 '}';
     }
 }

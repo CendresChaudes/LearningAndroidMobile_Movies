@@ -24,8 +24,7 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
-            tools:text="Название киносервиса" />
-
+            tools:text="Title" />
 
         <ImageView
             android:id="@+id/textViewPlay"

@@ -40,9 +40,9 @@ public class MoviePreview implements Serializable {
     @Override
     public String toString() {
         return "MoviePreview{" +
-                "id=" + id +
-                ", poster=" + poster +
-                ", rating=" + rating +
+                "id=" + this.id +
+                ", poster=" + this.poster +
+                ", rating=" + this.rating +
                 '}';
     }
 }

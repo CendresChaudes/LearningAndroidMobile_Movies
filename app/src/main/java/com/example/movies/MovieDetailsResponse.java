@@ -61,12 +61,12 @@ public class MovieDetailsResponse {
     @Override
     public String toString() {
         return "MovieDetailsResponse{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", year=" + year +
-                ", poster=" + poster +
-                ", watchability=" + watchability +
+                "id=" + this.id +
+                ", name='" + this.name + '\'' +
+                ", description='" + this.description + '\'' +
+                ", year=" + this.year +
+                ", poster=" + this.poster +
+                ", watchability=" + this.watchability +
                 '}';
     }
 }

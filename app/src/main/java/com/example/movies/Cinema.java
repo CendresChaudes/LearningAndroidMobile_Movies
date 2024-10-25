@@ -26,8 +26,8 @@ public class Cinema {
     @Override
     public String toString() {
         return "Cinema{" +
-                "title='" + title + '\'' +
-                ", url='" + url + '\'' +
+                "title='" + this.title + '\'' +
+                ", url='" + this.url + '\'' +
                 '}';
     }
 }
