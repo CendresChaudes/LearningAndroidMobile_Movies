@@ -4,19 +4,19 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Videos {
+public class Watchability {
 
-    @SerializedName("trailers")
-    private List<Trailer> trailers;
+    @SerializedName("items")
+    private List<Cinema> cinemas;
 
-    public List<Trailer> getTrailers() {
-        return this.trailers;
+    public List<Cinema> getCinemas() {
+        return this.cinemas;
     }
 
     @Override
     public String toString() {
         return "Videos{" +
-                "trailers=" + trailers +
+                "cinemas=" + cinemas +
                 '}';
     }
 }

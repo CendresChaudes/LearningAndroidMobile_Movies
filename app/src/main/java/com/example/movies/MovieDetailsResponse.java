@@ -19,8 +19,8 @@ public class MovieDetailsResponse {
     @SerializedName("poster")
     private Poster poster;
 
-    @SerializedName("videos")
-    private Videos videos;
+    @SerializedName("watchability")
+    private Watchability watchability;
 
     public MovieDetailsResponse(
             int id,
@@ -28,14 +28,14 @@ public class MovieDetailsResponse {
             String description,
             int year,
             Poster poster,
-            Videos videos
+            Watchability watchability
     ) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.year = year;
         this.poster = poster;
-        this.videos = videos;
+        this.watchability = watchability;
     }
 
     public String getName() {
@@ -54,8 +54,8 @@ public class MovieDetailsResponse {
         return this.poster;
     }
 
-    public Videos getVideos() {
-        return this.videos;
+    public Watchability getWatchability() {
+        return this.watchability;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class MovieDetailsResponse {
                 ", description='" + description + '\'' +
                 ", year=" + year +
                 ", poster=" + poster +
-                ", videos=" + videos +
+                ", watchability=" + watchability +
                 '}';
     }
 }
