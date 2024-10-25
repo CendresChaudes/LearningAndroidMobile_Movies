@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initActivity() {
         this.initViews();
-        this.initViewModel();
         this.initRecyclerViewMovies();
+        this.initViewModel();
         this.setOnMovieItemClickListener();
         this.setOnReachEndListener();
         this.setGetMoviesObserver();
@@ -54,8 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initRecyclerViewMovies() {
         this.moviesAdapter = new MoviesAdapter();
-        this.recyclerViewMovies.setLayoutManager(new GridLayoutManager(this, 2));
-        this.recyclerViewMovies.setAdapter(moviesAdapter);
+        this.recyclerViewMovies.setAdapter(this.moviesAdapter);
     }
 
     private void setOnMovieItemClickListener() {
