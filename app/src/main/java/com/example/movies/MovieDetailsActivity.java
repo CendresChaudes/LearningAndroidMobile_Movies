@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.List;
+
 public class MovieDetailsActivity extends AppCompatActivity {
 
     private static final String MOVIE_INTENT_KEY = "movie";
@@ -29,6 +31,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private TextView textViewDescription;
     private RecyclerView recyclerViewCinemas;
     private CinemasAdapter cinemasAdapter;
+    private RecyclerView recyclerViewReviews;
+    private ReviewsAdapter reviewsAdapter;
     private ProgressBar progressBarMovieDetailsLoading;
 
     @NonNull
@@ -48,12 +52,17 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     private void initActivity() {
         this.initViews();
-        this.initRecyclerViewTrailers();
+        this.initRecyclerViewCinemas();
+        this.initRecyclerViewReviews();
         this.initViewModel();
-        this.loadMovieDetails();
+
         this.setGetIsMovieDetailsLoadingObserver();
         this.setGetMovieDetailsObserver();
+        this.setGetMovieReviewsObserver();
         this.setOnCinemaLinkItemClickListener();
+
+        this.loadMovieDetails();
+        this.loadMovieReviews();
     }
 
     private void initViews() {
@@ -62,12 +71,18 @@ public class MovieDetailsActivity extends AppCompatActivity {
         textViewYear = findViewById(R.id.textViewYear);
         textViewDescription = findViewById(R.id.textViewDescription);
         recyclerViewCinemas = findViewById(R.id.recyclerViewCinemas);
+        recyclerViewReviews = findViewById(R.id.recyclerViewReviews);
         progressBarMovieDetailsLoading = findViewById(R.id.progressBarMovieDetailsLoading);
     }
 
-    private void initRecyclerViewTrailers() {
+    private void initRecyclerViewCinemas() {
         this.cinemasAdapter = new CinemasAdapter();
         this.recyclerViewCinemas.setAdapter(this.cinemasAdapter);
+    }
+
+    private void initRecyclerViewReviews() {
+        this.reviewsAdapter = new ReviewsAdapter();
+        this.recyclerViewReviews.setAdapter(this.reviewsAdapter);
     }
 
     private void initViewModel() {
@@ -77,6 +92,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private void loadMovieDetails() {
         MoviePreview movie = (MoviePreview) getIntent().getSerializableExtra(MOVIE_INTENT_KEY);
         this.viewModel.loadMovieDetails(movie.getId());
+    }
+
+    private void loadMovieReviews() {
+        MoviePreview movie = (MoviePreview) getIntent().getSerializableExtra(MOVIE_INTENT_KEY);
+        this.viewModel.loadMovieReviews(movie.getId());
     }
 
     private void setGetIsMovieDetailsLoadingObserver() {
@@ -106,6 +126,15 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 textViewDescription.setText(movieDetailsResponse.getDescription());
 
                 cinemasAdapter.setCinemas(movieDetailsResponse.getWatchability().getCinemas());
+            }
+        });
+    }
+
+    private void setGetMovieReviewsObserver() {
+        this.viewModel.getMovieReviews().observe(this, new Observer<List<Review>>() {
+            @Override
+            public void onChanged(List<Review> reviews) {
+                reviewsAdapter.setReviews(reviews);
             }
         });
     }
