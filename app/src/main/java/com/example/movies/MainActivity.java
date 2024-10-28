@@ -2,9 +2,12 @@ package com.example.movies;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -26,6 +29,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.initActivity();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menuItemFavorites) {
+            this.launchFavoritesScreen();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void launchFavoritesScreen() {
+        Intent intent = FavoritesActivity.createIntent(this);
+        startActivity(intent);
     }
 
     private void launchMovieDetailsScreen(MoviePreview movie) {

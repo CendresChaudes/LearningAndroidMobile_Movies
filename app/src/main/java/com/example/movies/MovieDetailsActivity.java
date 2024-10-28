@@ -66,7 +66,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
         this.setGetMovieDetailsObserver();
         this.setGetMovieReviewsObserver();
         this.setGetFavoriteMovieObserver();
-
         this.setOnCinemaLinkItemClickListener();
 
         this.loadMovieDetails();
