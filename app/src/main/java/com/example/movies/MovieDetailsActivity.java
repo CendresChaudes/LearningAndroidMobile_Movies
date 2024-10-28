@@ -2,6 +2,7 @@ package com.example.movies;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,7 +27,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     private MovieDetailsViewModel viewModel;
 
+    private MoviePreview moviePreview;
+
     private ImageView imageViewPoster;
+    private ImageView imageViewFavorite;
     private TextView textViewTitle;
     private TextView textViewYear;
     private TextView textViewDescription;
@@ -56,9 +61,12 @@ public class MovieDetailsActivity extends AppCompatActivity {
         this.initRecyclerViewReviews();
         this.initViewModel();
 
+        this.setMoviePreviewFromMainScreen();
         this.setGetIsMovieDetailsLoadingObserver();
         this.setGetMovieDetailsObserver();
         this.setGetMovieReviewsObserver();
+        this.setGetFavoriteMovieObserver();
+
         this.setOnCinemaLinkItemClickListener();
 
         this.loadMovieDetails();
@@ -67,6 +75,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     private void initViews() {
         imageViewPoster = findViewById(R.id.imageViewPoster);
+        imageViewFavorite = findViewById(R.id.imageViewFavorite);
         textViewTitle = findViewById(R.id.textViewTitle);
         textViewYear = findViewById(R.id.textViewYear);
         textViewDescription = findViewById(R.id.textViewDescription);
@@ -89,14 +98,52 @@ public class MovieDetailsActivity extends AppCompatActivity {
         this.viewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
     }
 
+    private void setMoviePreviewFromMainScreen() {
+        this.moviePreview = (MoviePreview) getIntent().getSerializableExtra(MOVIE_INTENT_KEY);
+    }
+
     private void loadMovieDetails() {
-        MoviePreview movie = (MoviePreview) getIntent().getSerializableExtra(MOVIE_INTENT_KEY);
-        this.viewModel.loadMovieDetails(movie.getId());
+        this.viewModel.loadMovieDetails(this.moviePreview.getId());
     }
 
     private void loadMovieReviews() {
-        MoviePreview movie = (MoviePreview) getIntent().getSerializableExtra(MOVIE_INTENT_KEY);
-        this.viewModel.loadMovieReviews(movie.getId());
+        this.viewModel.loadMovieReviews(this.moviePreview.getId());
+    }
+
+    private void setGetFavoriteMovieObserver() {
+        Drawable starBigOffDrawable = ContextCompat.getDrawable(
+                this,
+                android.R.drawable.star_big_off
+        );
+
+        Drawable starBigOnDrawable = ContextCompat.getDrawable(
+                this,
+                android.R.drawable.star_big_on
+        );
+
+        this.viewModel.getFavoriteMovie(this.moviePreview.getId()).observe(
+                this,
+                new Observer<MoviePreview>() {
+                    @Override
+                    public void onChanged(MoviePreview moviePreviewFromDb) {
+                        imageViewFavorite.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (moviePreviewFromDb == null) {
+                                    viewModel.saveToFavorite(moviePreview);
+                                } else {
+                                    viewModel.deleteFromFavorite(moviePreview.getId());
+                                }
+                            }
+                        });
+
+                        if (moviePreviewFromDb == null) {
+                            imageViewFavorite.setImageDrawable(starBigOffDrawable);
+                        } else {
+                            imageViewFavorite.setImageDrawable(starBigOnDrawable);
+                        }
+                    }
+                });
     }
 
     private void setGetIsMovieDetailsLoadingObserver() {
@@ -113,21 +160,24 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     private void setGetMovieDetailsObserver() {
-        this.viewModel.getMovieDetails().observe(this, new Observer<MovieDetailsResponse>() {
-            @Override
-            public void onChanged(MovieDetailsResponse movieDetailsResponse) {
-                Glide
-                        .with(MovieDetailsActivity.this)
-                        .load(movieDetailsResponse.getPoster().getUrl())
-                        .into(imageViewPoster);
+        this.viewModel.getMovieDetails().observe(
+                this,
+                new Observer<MovieDetailsResponse>() {
+                    @Override
+                    public void onChanged(MovieDetailsResponse movieDetailsResponse) {
+                        Glide
+                                .with(MovieDetailsActivity.this)
+                                .load(movieDetailsResponse.getPoster().getUrl())
+                                .error(android.R.drawable.ic_menu_report_image)
+                                .into(imageViewPoster);
 
-                textViewTitle.setText(movieDetailsResponse.getName());
-                textViewYear.setText(String.valueOf(movieDetailsResponse.getYear()));
-                textViewDescription.setText(movieDetailsResponse.getDescription());
+                        textViewTitle.setText(movieDetailsResponse.getName());
+                        textViewYear.setText(String.valueOf(movieDetailsResponse.getYear()));
+                        textViewDescription.setText(movieDetailsResponse.getDescription());
 
-                cinemasAdapter.setCinemas(movieDetailsResponse.getWatchability().getCinemas());
-            }
-        });
+                        cinemasAdapter.setCinemas(movieDetailsResponse.getWatchability().getCinemas());
+                    }
+                });
     }
 
     private void setGetMovieReviewsObserver() {

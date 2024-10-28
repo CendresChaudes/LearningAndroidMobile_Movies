@@ -23,6 +23,7 @@ public class MovieDetailsViewModel extends AndroidViewModel {
     private static final String CLASS_NAME = "MovieDetailsViewModel";
 
     private final ApiService apiService;
+    private final MoviesDao moviesDao;
 
     private final MutableLiveData<MovieDetailsResponse> movieDetails;
     private final MutableLiveData<List<Review>> movieReviews;
@@ -34,6 +35,7 @@ public class MovieDetailsViewModel extends AndroidViewModel {
         super(application);
 
         this.apiService = ApiFactory.apiService;
+        this.moviesDao = MoviesDatabase.getInstance(getApplication()).moviesDao();
         this.movieDetails = new MutableLiveData<>();
         this.movieReviews = new MutableLiveData<>();
         this.isMovieDetailsLoading = new MutableLiveData<>(false);
@@ -129,5 +131,27 @@ public class MovieDetailsViewModel extends AndroidViewModel {
 
     public LiveData<List<Review>> getMovieReviews() {
         return this.movieReviews;
+    }
+
+    public LiveData<MoviePreview> getFavoriteMovie(int id) {
+        return this.moviesDao.getFavoriteMovieById(id);
+    }
+
+    public void saveToFavorite(MoviePreview movie) {
+        Disposable disposable = this.moviesDao
+                .createFavoriteMovie(movie)
+                .subscribeOn(Schedulers.io())
+                .subscribe();
+
+        this.compositeDisposable.add(disposable);
+    }
+
+    public void deleteFromFavorite(int id) {
+        Disposable disposable = this.moviesDao
+                .deleteFavoriteMovie(id)
+                .subscribeOn(Schedulers.io())
+                .subscribe();
+
+        this.compositeDisposable.add(disposable);
     }
 }
