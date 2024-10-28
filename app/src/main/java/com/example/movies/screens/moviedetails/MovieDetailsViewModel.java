@@ -1,4 +1,4 @@
-package com.example.movies;
+package com.example.movies.screens.moviedetails;
 
 import android.app.Application;
 import android.util.Log;
@@ -7,6 +7,15 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
+import com.example.movies.api.ApiFactory;
+import com.example.movies.api.ApiService;
+import com.example.movies.api.MovieDetailsResponse;
+import com.example.movies.api.MovieReviewsResponse;
+import com.example.movies.common.MoviePreview;
+import com.example.movies.common.Review;
+import com.example.movies.database.MoviesDao;
+import com.example.movies.database.MoviesDatabase;
 
 import java.util.List;
 

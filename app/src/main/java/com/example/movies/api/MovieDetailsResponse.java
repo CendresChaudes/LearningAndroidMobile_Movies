@@ -1,26 +1,28 @@
-package com.example.movies;
+package com.example.movies.api;
 
+import com.example.movies.common.Poster;
+import com.example.movies.common.Watchability;
 import com.google.gson.annotations.SerializedName;
 
 public class MovieDetailsResponse {
 
     @SerializedName("id")
-    private int id;
+    private final int id;
 
     @SerializedName("name")
-    private String name;
+    private final String name;
 
     @SerializedName("description")
-    private String description;
+    private final String description;
 
     @SerializedName("year")
-    private int year;
+    private final int year;
 
     @SerializedName("poster")
-    private Poster poster;
+    private final Poster poster;
 
     @SerializedName("watchability")
-    private Watchability watchability;
+    private final Watchability watchability;
 
     public MovieDetailsResponse(
             int id,

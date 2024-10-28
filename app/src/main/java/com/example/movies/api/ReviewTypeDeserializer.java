@@ -1,7 +1,8 @@
-package com.example.movies;
+package com.example.movies.api;
 
 import android.util.Log;
 
+import com.example.movies.common.ReviewType;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;

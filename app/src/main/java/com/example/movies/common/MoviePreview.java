@@ -1,4 +1,4 @@
-package com.example.movies;
+package com.example.movies.common;
 
 import androidx.room.Embedded;
 import androidx.room.Entity;
@@ -13,15 +13,15 @@ public class MoviePreview implements Serializable {
 
     @PrimaryKey
     @SerializedName("id")
-    private int id;
+    private final int id;
 
     @Embedded
     @SerializedName("poster")
-    private Poster poster;
+    private final Poster poster;
 
     @Embedded
     @SerializedName("rating")
-    private Rating rating;
+    private final Rating rating;
 
     public MoviePreview(
             int id,

@@ -1,17 +1,17 @@
-package com.example.movies;
+package com.example.movies.common;
 
 import com.google.gson.annotations.SerializedName;
 
 public class Review {
 
     @SerializedName("author")
-    private String author;
+    private final String author;
 
     @SerializedName("review")
-    private String text;
+    private final String text;
 
     @SerializedName("type")
-    private ReviewType type;
+    private final ReviewType type;
 
     public Review(String author, String text, ReviewType type) {
         this.author = author;

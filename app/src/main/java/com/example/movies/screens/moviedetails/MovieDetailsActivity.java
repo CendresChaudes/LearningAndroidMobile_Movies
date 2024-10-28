@@ -1,4 +1,4 @@
-package com.example.movies;
+package com.example.movies.screens.moviedetails;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +18,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.movies.R;
+import com.example.movies.api.MovieDetailsResponse;
+import com.example.movies.common.Cinema;
+import com.example.movies.common.MoviePreview;
+import com.example.movies.common.Review;
 
 import java.util.List;
 

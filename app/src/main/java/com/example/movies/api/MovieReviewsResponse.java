@@ -1,5 +1,6 @@
-package com.example.movies;
+package com.example.movies.api;
 
+import com.example.movies.common.Review;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 public class MovieReviewsResponse {
 
     @SerializedName("docs")
-    private List<Review> reviews;
+    private final List<Review> reviews;
 
     public MovieReviewsResponse(List<Review> reviews) {
         this.reviews = reviews;

@@ -1,4 +1,4 @@
-package com.example.movies;
+package com.example.movies.screens.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.movies.R;
+import com.example.movies.common.MoviePreview;
+import com.example.movies.common.MoviesAdapter;
+import com.example.movies.screens.favorites.FavoritesActivity;
+import com.example.movies.screens.moviedetails.MovieDetailsActivity;
 
 import java.util.List;
 

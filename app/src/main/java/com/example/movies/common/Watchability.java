@@ -1,4 +1,4 @@
-package com.example.movies;
+package com.example.movies.common;
 
 import com.google.gson.annotations.SerializedName;
 

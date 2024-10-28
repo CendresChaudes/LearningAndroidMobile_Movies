@@ -1,7 +1,5 @@
-package com.example.movies;
+package com.example.movies.screens.moviedetails;
 
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +8,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.movies.R;
+import com.example.movies.common.Review;
+import com.example.movies.common.ReviewType;
 
 import java.util.ArrayList;
 import java.util.List;

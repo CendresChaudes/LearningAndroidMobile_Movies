@@ -1,4 +1,4 @@
-package com.example.movies;
+package com.example.movies.common;
 
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.movies.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,12 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
         double rating = movie.getRating().getKp();
         int backgroundId = this.getBackgroundId(rating);
-        Drawable background = ContextCompat.getDrawable(holder.itemView.getContext(), backgroundId);
+
+        Drawable background = ContextCompat.getDrawable(
+                holder.itemView.getContext(),
+                backgroundId
+        );
+
         textViewRating.setBackground(background);
         textViewRating.setText(String.format("%.1f", rating));
 
@@ -98,12 +104,12 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         return id;
     }
 
-    interface OnMovieItemClickListener {
+    public interface OnMovieItemClickListener {
 
         void onClick(MoviePreview movie);
     }
 
-    interface OnReachEndListener {
+    public interface OnReachEndListener {
 
         void onReachEnd();
     }

@@ -1,4 +1,4 @@
-package com.example.movies;
+package com.example.movies.screens.main;
 
 import android.app.Application;
 import android.util.Log;
@@ -7,6 +7,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
+import com.example.movies.api.ApiFactory;
+import com.example.movies.api.ApiService;
+import com.example.movies.api.MoviesResponse;
+import com.example.movies.common.MoviePreview;
 
 import java.util.List;
 

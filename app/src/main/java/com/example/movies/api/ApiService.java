@@ -1,4 +1,4 @@
-package com.example.movies;
+package com.example.movies.api;
 
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.GET;

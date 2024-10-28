@@ -1,5 +1,6 @@
-package com.example.movies;
+package com.example.movies.api;
 
+import com.example.movies.common.ReviewType;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

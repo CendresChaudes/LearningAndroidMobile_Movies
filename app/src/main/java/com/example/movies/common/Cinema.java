@@ -1,14 +1,14 @@
-package com.example.movies;
+package com.example.movies.common;
 
 import com.google.gson.annotations.SerializedName;
 
 public class Cinema {
 
     @SerializedName("name")
-    private String title;
+    private final String title;
 
     @SerializedName("url")
-    private String url;
+    private final String url;
 
     public Cinema(String title, String url) {
         this.title = title;
