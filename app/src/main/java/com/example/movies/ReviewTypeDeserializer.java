@@ -1,5 +1,7 @@
 package com.example.movies;
 
+import android.util.Log;
+
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -25,13 +27,13 @@ public class ReviewTypeDeserializer implements JsonDeserializer<ReviewType> {
             case "Нейтральный":
                 reviewType = ReviewType.NEUTRAL;
                 break;
-            case "!Негативный":
+            case "Негативный":
                 reviewType = ReviewType.NEGATIVE;
                 break;
         }
 
         if (reviewType == null) {
-            throw new JsonParseException("Unexpected review type: " + typeName);
+            Log.e("ReviewTypeDeserializer", "Unexpected review type: " + typeName);
         }
 
         return reviewType;
